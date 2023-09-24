@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import (
 )
 from main.model import AppModel
 from main.view import AppView
-from main.ui.stylesheets_constants import BTN_ORIG, BTN_PRESSED
+from main.Widgets.task_button import TaskbuttonWidget
 
 class AppController:
     def __init__(self, model, view):
@@ -27,9 +27,13 @@ class AppController:
         self.view.task_frame_layout.addWidget(new_button)
 
     def add_layout(self):
-        new_task = TaskbuttonVC(self.view.app)
+        new_task = TaskbuttonWidget()
+        new_task.clicked.connect(self.click_task)
         self.view.task_frame_layout.addWidget(new_task)
 
+    def click_task(self, checked):
+        button: TaskbuttonWidget = self.view.app.sender()
+        button.toggle(checked)
     
     def change_color(self, checked):
 
@@ -39,37 +43,6 @@ class AppController:
         else:
             button.setStyleSheet("")
 
-#An element acts like View-Controller format
-class TaskbuttonVC(QPushButton):
-    
-    def __init__(self, app: QApplication):
-        super().__init__()
-        self.init_view()
-        self.init_controller()
-        self.app = app
-        
-
-    def init_view(self):
-        self.setText("I am Task")
-        self.setCheckable(True)
-        self.set_form()
-        
-    def set_form(self):
-        self.setStyleSheet(BTN_ORIG)
-
-
-    def init_controller(self):
-        self.clicked.connect(self.toggle)
-
-    def toggle(self, checked):
-        task: QPushButton = self.app.sender()
-        if checked:
-            task.setStyleSheet(BTN_PRESSED)
-        else:
-            task.setStyleSheet(BTN_ORIG)
-
-
-#Test Commit
 
 
 
