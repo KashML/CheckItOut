@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QWidget,
     QHBoxLayout, QSizePolicy
 )
-from model import AppModel
-from view import AppView
+from main.model import AppModel
+from main.view import AppView
 
 class AppController:
     def __init__(self, model, view):

@@ -1,10 +1,9 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 
-
-from model import AppModel
-from view import AppView
-from controller import AppController
+from main.model import AppModel
+from main.view import AppView
+from main.controller import AppController
 
 
 

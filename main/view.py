@@ -1,12 +1,19 @@
+import os
 import sys
+
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout
+
+import main
+
+MAIN_DIR_PATH = os.path.dirname(main.__file__)
+UI_PATH = os.path.join(MAIN_DIR_PATH, "checklist.ui")
 
 class AppView:
     def __init__(self):
         
         self.app = QApplication(sys.argv)
-        self.window = uic.loadUi("/home/abhinavkashyap/dev/journey/apps/checklist.ui")
+        self.window = uic.loadUi(UI_PATH)
         self.setup_ui()
         self.prepare_task_frame()
         print("initialized App View")
