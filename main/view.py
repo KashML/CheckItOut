@@ -4,9 +4,9 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout
 
-import main
+import main.ui
 
-MAIN_DIR_PATH = os.path.dirname(main.__file__)
+MAIN_DIR_PATH = os.path.dirname(main.ui.__file__)
 UI_PATH = os.path.join(MAIN_DIR_PATH, "checklist.ui")
 
 class AppView:

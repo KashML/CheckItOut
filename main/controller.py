@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (
 )
 from main.model import AppModel
 from main.view import AppView
+from main.ui.stylesheets_constants import BTN_ORIG, BTN_PRESSED
 
 class AppController:
     def __init__(self, model, view):
@@ -38,31 +39,6 @@ class AppController:
         else:
             button.setStyleSheet("")
 
-
-BTN_STYLE = """QPushButton {
-            background-color: white; 
-            border: 6px solid pink; 
-            color: black; 
-            padding: 10px 40px; 
-            font-size: 16px; 
-            font-weight: bold;
-            border-radius: 20px; 
-        }
-        """
-
-CHANGE_COLOR = """QPushButton {
-            background-color: green; 
-            }
-            """
-
-BTN_PLAIN ="""QPushButton:hover {
-                background-color: #f0f0f0;
-            }
-            """
-BIN_RED  ="QPushButton:hover {background-color: #FF4500;}"
-
-
-
 #An element acts like View-Controller format
 class TaskbuttonVC(QPushButton):
     
@@ -79,7 +55,7 @@ class TaskbuttonVC(QPushButton):
         self.set_form()
         
     def set_form(self):
-        self.setStyleSheet(BTN_STYLE + BTN_PLAIN)
+        self.setStyleSheet(BTN_ORIG)
 
 
     def init_controller(self):
@@ -88,9 +64,9 @@ class TaskbuttonVC(QPushButton):
     def toggle(self, checked):
         task: QPushButton = self.app.sender()
         if checked:
-            task.setStyleSheet(CHANGE_COLOR)
+            task.setStyleSheet(BTN_PRESSED)
         else:
-            task.setStyleSheet(BTN_STYLE + BTN_PLAIN)
+            task.setStyleSheet(BTN_ORIG)
 
 
 #Test Commit
