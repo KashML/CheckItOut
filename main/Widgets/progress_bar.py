@@ -1,3 +1,10 @@
+"""
+Original author is : Prx001
+Git Repo : https://github.com/Prx001/QRoundProgressbar
+
+This code is copied and modified for this application use.
+"""
+
 from PyQt5 import QtCore, QtGui, Qt, QtWidgets
 import sys
 
@@ -8,7 +15,6 @@ from PyQt5.QtGui import QPainter, QColor, QPen, QBrush
 
 class RoundProgressbar(QWidget):
 
-	clicked = pyqtSignal()
 	def __init__(
 			self,
 			parent=None,
@@ -147,26 +153,13 @@ class RoundProgressbar(QWidget):
 		self._fill_bg_circle = value
 		self.update()
 	
-	def mousePressEvent(self, event):
-		super().mousePressEvent(event)
-		
-		# Emit the clicked signal when the widget is pressed
-		if event.button() == Qt.LeftButton:
-			self.clicked.emit()
+	fill_background_circle = pyqtProperty(bool, get_fill_bg_circle, set_fill_bg_circle)
 
-	fill_background_circle = pyqtProperty(bool, get_fill_bg_circle, set_fill_bg_circle)           
+           
 
 if __name__ == "__main__":
-
-	
-
 	app = QtWidgets.QApplication(sys.argv)
 	dlg = RoundProgressbar()
-
-	def on_widget_clicked():
-		dlg.set_value(25)
-		print("RoundProgressbar was clicked!")
-	dlg.clicked.connect(on_widget_clicked)
 	dlg.set_value(75)
 	dlg.show()
 	sys.exit(app.exec_())
