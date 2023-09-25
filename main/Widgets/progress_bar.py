@@ -10,7 +10,7 @@ import sys
 
 from PyQt5.QtCore import Qt, pyqtSlot, pyqtProperty, pyqtSignal
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QPainter, QColor, QPen, QBrush
+from PyQt5.QtGui import QPainter, QColor, QPen, QBrush  
 
 
 class RoundProgressbar(QWidget):
@@ -64,12 +64,11 @@ class RoundProgressbar(QWidget):
 		painter.drawArc(rect, int(self._a * 16), int(self._alen * 16))
 		
 		#  Render the progress number
-		font_size = int(self._thickness*1.5)  # 20% of the widget's width
+		font_size = int(self._thickness*1.5)
 		font = painter.font()
 		font.setPointSize(font_size)
 		painter.setFont(font)
-		painter.setPen(self._color)  # Using the progress color for the number
-		#rect = QtCore.QRect(0, 0, self.width(), self.height())
+		painter.setPen(self._color)
 		rect = QtCore.QRect(self._thickness, self._thickness, self._circular_size, self._circular_size)
 		painter.drawText(rect, QtCore.Qt.AlignCenter, str(self._value) + "%")
 		painter.end()
