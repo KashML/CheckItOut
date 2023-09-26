@@ -47,24 +47,35 @@ class RoundProgressbar(QWidget):
 		painter = QPainter()
 		painter.begin(self)
 		painter.setRenderHint(QPainter.Antialiasing)
+
+		# Draw white outline around the progress bar first
+		outline_thickness = 2  # thickness of the outline
+		painter.setPen(QPen(Qt.white, outline_thickness))
+		painter.setBrush(Qt.NoBrush)
+		painter.drawEllipse(self._thickness - outline_thickness // 2, 
+							self._thickness - outline_thickness // 2, 
+							self._circular_size + outline_thickness, 
+							self._circular_size + outline_thickness)
+
+		# Continue with the original background circle drawing
 		painter.setPen(QPen(self._bg_circle_color, self._thickness - 1, Qt.SolidLine))
 		if self._fill_bg_circle:
 			painter.setBrush(QBrush(self._bg_circle_color, Qt.SolidPattern))
-		elif not self._fill_bg_circle:
+		else:
 			painter.setBrush(Qt.NoBrush)
 		painter.drawEllipse(self._thickness, self._thickness, self._circular_size, self._circular_size)
+
+		# Drawing the progress arc
 		if self._round_edge:
 			painter.setPen(QPen(self._color, self._thickness, Qt.SolidLine, Qt.RoundCap))
-		elif not self._round_edge:
+		else:
 			painter.setPen(QPen(self._color, self._thickness, Qt.SolidLine, Qt.FlatCap))
 		painter.setBrush(Qt.NoBrush)
-
-		# Render the progress arc
 		rect = QtCore.QRect(self._thickness, self._thickness, self._circular_size, self._circular_size)
 		painter.drawArc(rect, int(self._a * 16), int(self._alen * 16))
-		
-		#  Render the progress number
-		font_size = int(self._thickness*1.5)
+
+		# Render the progress number
+		font_size = int(self._thickness * 1.5)
 		font = painter.font()
 		font.setPointSize(font_size)
 		painter.setFont(font)
