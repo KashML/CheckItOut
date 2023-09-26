@@ -59,7 +59,7 @@ class RoundProgressbar(QWidget):
 			painter.setPen(QPen(self._color, self._thickness, Qt.SolidLine, Qt.FlatCap))
 		painter.setBrush(Qt.NoBrush)
 
-		# Render the progress bar
+		# Render the progress arc
 		rect = QtCore.QRect(self._thickness, self._thickness, self._circular_size, self._circular_size)
 		painter.drawArc(rect, int(self._a * 16), int(self._alen * 16))
 		

@@ -2,7 +2,8 @@ import os
 import sys
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit
+from main.Widgets.progress_bar import RoundProgressbar
 
 import main.ui
 
@@ -14,31 +15,42 @@ class AppView:
         
         self.app = QApplication(sys.argv)
         self.window = uic.loadUi(UI_PATH)
-        self.setup_ui()
-        self.prepare_task_frame()
+        self._setup_ui()
+        self._prepare_task_frame()
+        self._prepare_progress_frame()
         print("initialized App View")
         
 
-    def setup_ui(self) -> None:
+    def _setup_ui(self) -> None:
         """
         Sets up all the references
         """
         
-        # Reference Frames
+        # Reference top level Frames
         self.main_frame: QFrame  = self.window.findChild(QFrame, "central_widget")
         self.perf_frame: QFrame = self.window.findChild(QFrame, "perf_frame")
         self.task_frame: QFrame = self.window.findChild(QFrame, "task_frame")
-        
-        
-        # Reference Performace Frame
-        self.add_task_btn: QPushButton = self.perf_frame.findChild(QPushButton,"add_task")
+        self.action_frame: QFrame = self.perf_frame.findChild(QFrame,"action_frame")
+        self.progress_frame: QFrame = self.perf_frame.findChild(QFrame,"progress_frame")
+
+        # Reference Action Frame
+        self.add_task_btn: QPushButton = self.action_frame.findChild(QPushButton,"add_task")
+        self.add_task_line: QLineEdit = self.action_frame.findChild(QLineEdit,"task_title")
 
     def show(self) -> None:
         self.window.show()
     
-    def prepare_task_frame(self):
+    def _prepare_task_frame(self):
         self.task_frame_layout: QVBoxLayout = QVBoxLayout()
         self.task_frame.setLayout(self.task_frame_layout)
+    
+    def _prepare_progress_frame(self):
+        self.progress_frame_layout: QVBoxLayout = QVBoxLayout()
+        self.progress_bar = RoundProgressbar(thickness=20)
+        self.progress_frame_layout.addWidget(self.progress_bar)
+        self.progress_frame.setLayout(self.progress_frame_layout)
+        self.progress_bar.set_value(100)
+        self.progress_bar.show()
 
 
 
