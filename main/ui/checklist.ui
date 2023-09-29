@@ -81,6 +81,9 @@
                <property name="enabled">
                 <bool>true</bool>
                </property>
+               <property name="styleSheet">
+                <string notr="true">background-color:rgb(238, 238, 236)</string>
+               </property>
                <property name="text">
                 <string>Add Task</string>
                </property>

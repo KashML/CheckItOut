@@ -2,7 +2,7 @@ import os
 import sys
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit
+from PyQt5.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow
 from main.Widgets.progress_bar import RoundProgressbar
 
 import main.ui
@@ -26,6 +26,8 @@ class AppView:
         Sets up all the references
         """
         
+        self.main_window: QMainWindow = self.window.findChild(QMainWindow, "MainWindow")
+
         # Reference top level Frames
         self.main_frame: QFrame  = self.window.findChild(QFrame, "central_widget")
         self.perf_frame: QFrame = self.window.findChild(QFrame, "perf_frame")

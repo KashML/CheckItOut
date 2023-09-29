@@ -10,11 +10,11 @@ class TaskbuttonWidget(QPushButton):
 
     doubleClicked = pyqtSignal()  # Define a new signal
 
-    def __init__(self, title: str = "No title given"):
+    def __init__(self, task_name: str = "No title given", id: int = 0):
         super().__init__()
-        self.title_text = title
+        self.title_text = task_name
         self.complete: bool = False
-        self.key: int = None
+        self.id: int = id
         self.init_view()
         
         
