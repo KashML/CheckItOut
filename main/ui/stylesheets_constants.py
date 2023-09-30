@@ -21,10 +21,6 @@ def get_button_style(color):
             QPushButton:hover {{
                 background-color: rgba(240, 240, 240,2);
             }}
-            QPushButton:checked {{
-                background-color: rgba(224, 224, 224, 0.2);
-                text-decoration: line-through;
-            }}
         """)
 
 def get_button_style_checked(color):
@@ -39,10 +35,5 @@ def get_button_style_checked(color):
                 font-weight: bold;
                 border-radius: 20px;
                 text-decoration: line-through;
-            }}
-            
-            QPushButton:checked {{
-                background-color: rgba(224, 224, 224, 0.2);
-                
             }}
         """)

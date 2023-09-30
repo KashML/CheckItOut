@@ -86,6 +86,9 @@ class AppController:
         # Delete button
         self.view.task_frame_layout.removeWidget(button)
 
+        button.hide()
+        button.deleteLater()
+
         # Get rate of completion
         status = self.model.get_completion_rate()
 
