@@ -13,7 +13,8 @@ class AppModel:
     
     def add_clicked(self, id: int, checked: bool) -> None:
         """Updates the status of the task"""
-        self._task_list[id].complete = checked
+        if self._task_list.get(id) is not None:
+            self._task_list[id].complete = checked
 
     
     def get_num_tasks(self) -> int:

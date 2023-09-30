@@ -68,6 +68,7 @@ class AppController:
 
         # Handle view side
         button: TaskbuttonWidget = self.view.app.sender()
+        button.toggle(checked)
 
         # Handle model side
         self.model.add_clicked(id=button.id, checked=checked)
@@ -79,15 +80,14 @@ class AppController:
 
         button: TaskbuttonWidget = self.view.app.sender()
         
-        # Delete button
-        self.view.task_frame_layout.removeWidget(button)
-
         # Delete data
         self.model.remove_task(button.id)
 
+        # Delete button
+        self.view.task_frame_layout.removeWidget(button)
+
         # Get rate of completion
         status = self.model.get_completion_rate()
-        print(f"Completion rate : {status}%")
 
         self.view.progress_bar.set_value(int(status))
 
@@ -113,6 +113,7 @@ class AppController:
             new_task.clicked.connect(self.click_task)
             new_task.doubleClicked.connect(self.remove_task)
             new_task.setChecked(task.complete)
+            new_task.toggle(task.complete)
             self.view.task_frame_layout.addWidget(new_task)
 
             # Handle model side
@@ -131,7 +132,7 @@ class AppController:
         
         # Get rate of completion
         status = self.model.get_completion_rate()
-        print(f"Completion rate : {status}%")
+        
 
         self.view.progress_bar.set_value(int(status))
 
