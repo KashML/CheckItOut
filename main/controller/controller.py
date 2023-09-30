@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QWidget,
     QHBoxLayout, QSizePolicy
 )
+from typing import Dict
+
 from main.model.model import AppModel
 from main.view import AppView
 from main.Widgets.task_button import TaskbuttonWidget
@@ -22,6 +24,7 @@ class AppController:
 
         # Counter for the TaskWidgets
         self.task_num = 0
+        self.task_button_dict: Dict[int:TaskbuttonWidget] = {}
 
 
         # Connect UI interactions to model manipulations
@@ -40,6 +43,7 @@ class AppController:
         added through the gui or loaded from memory
         """
 
+        #Update View side
         task_name = validate_text_input(self.view.add_task_line.text())
         self.view.add_task_line.clear()
         print(f"Adding a new task : {task_name}")
@@ -48,14 +52,14 @@ class AppController:
         new_task = TaskbuttonWidget(task_name=task_name, id=self.task_num)
         new_task.clicked.connect(self.click_task)
         new_task.doubleClicked.connect(self.remove_task)
-
-
         self.view.task_frame_layout.addWidget(new_task)
 
         # Handle model side
         task_data = TaskData(task_name=task_name, id=self.task_num)
         self.model.add_task(task_data)
         
+        # Update the controller
+        self.task_button_dict[self.task_num] = new_task
         self.task_num = self.task_num + 1
 
 
@@ -101,11 +105,9 @@ class AppController:
         """Load previous tasks from memory"""
         
         data_list = self.file_manager.load_as_list()
-        print("hello")
-        print(data_list)
-        
         for task in data_list:
             
+            # Handle view side
             task_name = task.task_name
             new_task = TaskbuttonWidget(task_name=task_name, id=self.task_num)
             new_task.clicked.connect(self.click_task)
@@ -117,9 +119,10 @@ class AppController:
             task_data = TaskData(task_name=task_name, id=self.task_num, complete=task.complete)
             self.model.add_task(task_data)
             
+            # Update Controller
+            self.task_button_dict[self.task_num] = new_task
             self.task_num = self.task_num + 1
 
-            
 
         print(f"{len(data_list)} tasks loaded")
     

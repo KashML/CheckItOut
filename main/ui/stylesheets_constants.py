@@ -4,7 +4,7 @@
 #--------------------
 
 #orange,pink, cyan,green
-BUTTON_COLOR_LIST = ["#FFBA55", "#FF6E40", "#0099CC", "#80BF00"]
+BUTTON_COLOR_LIST = ["#FFBA55", "#FF6E40", "#0099CC"]
 
 def get_button_style(color):
         return (f"""
