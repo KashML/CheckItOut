@@ -64,7 +64,6 @@ class AppController:
 
         # Handle view side
         button: TaskbuttonWidget = self.view.app.sender()
-        button.toggle(checked)
 
         # Handle model side
         self.model.add_clicked(id=button.id, checked=checked)
@@ -112,7 +111,6 @@ class AppController:
             new_task.clicked.connect(self.click_task)
             new_task.doubleClicked.connect(self.remove_task)
             new_task.setChecked(task.complete)
-            new_task.toggle(task.complete)
             self.view.task_frame_layout.addWidget(new_task)
 
             # Handle model side

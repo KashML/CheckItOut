@@ -18,7 +18,7 @@ class RoundProgressbar(QWidget):
 	def __init__(
 			self,
 			parent=None,
-			color: QColor = QColor(170, 0, 255),
+			color: QColor = QColor(255, 255, 255),
 			size: int = 100,
 			thickness: int = 10,
 			value: int = 24,

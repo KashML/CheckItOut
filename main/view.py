@@ -48,7 +48,7 @@ class AppView:
     
     def _prepare_progress_frame(self):
         self.progress_frame_layout: QVBoxLayout = QVBoxLayout()
-        self.progress_bar = RoundProgressbar(thickness=20)
+        self.progress_bar = RoundProgressbar(thickness=30)
         self.progress_frame_layout.addWidget(self.progress_bar)
         self.progress_frame.setLayout(self.progress_frame_layout)
         self.progress_bar.set_value(100)

@@ -7,14 +7,22 @@
     <x>0</x>
     <y>0</y>
     <width>1058</width>
-    <height>721</height>
+    <height>801</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:rgb(46, 52, 54)</string>
+   <string notr="true">background-color: #2d2d2d;
+    border: 3px solid #5e5e5e;
+    border-radius: 8px;
+    font-family: &quot;Roboto&quot;, sans-serif;
+    font-size: 16px;
+    font-weight: medium;
+    color: #f3f3f3;
+  
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -81,8 +89,11 @@
                <property name="enabled">
                 <bool>true</bool>
                </property>
-               <property name="styleSheet">
-                <string notr="true">background-color:rgb(238, 238, 236)</string>
+               <property name="maximumSize">
+                <size>
+                 <width>366</width>
+                 <height>25</height>
+                </size>
                </property>
                <property name="text">
                 <string>Add Task</string>
@@ -122,11 +133,35 @@
      <x>0</x>
      <y>0</y>
      <width>1058</width>
-     <height>22</height>
+     <height>30</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMELU">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionClear_All"/>
+    <addaction name="actionReload_Last_session"/>
+    <addaction name="actionReload_last_session"/>
+   </widget>
+   <addaction name="menuMELU"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionClear_All">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionReload_Last_session">
+   <property name="text">
+    <string>Clear All</string>
+   </property>
+  </action>
+  <action name="actionReload_last_session">
+   <property name="text">
+    <string>Reload Last Session</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
