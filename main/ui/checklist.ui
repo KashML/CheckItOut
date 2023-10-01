@@ -136,28 +136,34 @@
      <height>30</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMELU">
+   <widget class="QMenu" name="menu_menu">
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionClear_All"/>
-    <addaction name="actionReload_Last_session"/>
-    <addaction name="actionReload_last_session"/>
+    <addaction name="save_action"/>
+    <addaction name="clear_all_action"/>
+    <addaction name="load_last_session_action"/>
    </widget>
-   <addaction name="menuMELU"/>
+   <widget class="QMenu" name="theme_menu">
+    <property name="title">
+     <string>Theme</string>
+    </property>
+   </widget>
+   <addaction name="menu_menu"/>
+   <addaction name="theme_menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionClear_All">
+  <action name="save_action">
    <property name="text">
     <string>Save</string>
    </property>
   </action>
-  <action name="actionReload_Last_session">
+  <action name="clear_all_action">
    <property name="text">
     <string>Clear All</string>
    </property>
   </action>
-  <action name="actionReload_last_session">
+  <action name="load_last_session_action">
    <property name="text">
     <string>Reload Last Session</string>
    </property>

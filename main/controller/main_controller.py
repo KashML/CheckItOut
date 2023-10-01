@@ -39,8 +39,7 @@ class AppController:
         print("Initialized Controller")
     
     def add_task(self) -> None:
-        """Handles the action of adding a task. Task can be
-        added through the gui or loaded from memory
+        """Handles the action of adding a task by the user
         """
 
         #Update View side
@@ -48,19 +47,7 @@ class AppController:
         self.view.add_task_line.clear()
         print(f"Adding a new task : {task_name}")
         
-        
-        new_task = TaskbuttonWidget(task_name=task_name, id=self.task_num)
-        new_task.clicked.connect(self.click_task)
-        new_task.doubleClicked.connect(self.remove_task)
-        self.view.task_frame_layout.addWidget(new_task)
-
-        # Handle model side
-        task_data = TaskData(task_name=task_name, id=self.task_num)
-        self.model.add_task(task_data)
-        
-        # Update the controller
-        self.task_button_dict[self.task_num] = new_task
-        self.task_num = self.task_num + 1
+        self.create_task(task_name=task_name)
 
 
     def click_task(self, checked):
@@ -76,24 +63,11 @@ class AppController:
         self.update_progress_bar()
     
     def remove_task(self):
-        """Handles the action of deleting a task"""
+        """Handles the action of deleting a task by double clicking on it"""
 
         button: TaskbuttonWidget = self.view.app.sender()
+        self.delete_task(id=button.id)
         
-        # Delete data
-        self.model.remove_task(button.id)
-
-        # Delete button
-        self.view.task_frame_layout.removeWidget(button)
-
-        button.hide()
-        button.deleteLater()
-
-        # Get rate of completion
-        status = self.model.get_completion_rate()
-
-        self.view.progress_bar.set_value(int(status))
-
     
     def clean_up(self, event)-> None:
         """Cleaning up tasks"""
@@ -104,28 +78,51 @@ class AppController:
         print("Exiting App")
         event.accept()
 
+    def create_task(self, task_name: str, complete: bool = False) -> None:
+        """Creates a new task"""
+
+        # Handle view
+        new_task = TaskbuttonWidget(task_name=task_name, id=self.task_num)
+        new_task.clicked.connect(self.click_task)
+        new_task.doubleClicked.connect(self.remove_task)
+        new_task.setChecked(complete)
+        new_task.toggle(complete)
+        self.view.task_frame_layout.addWidget(new_task)
+
+        # Handle model side
+        task_data = TaskData(task_name=task_name, id=self.task_num, complete=complete)
+        self.model.add_task(task_data)
+        
+        # Update the controller
+        self.task_button_dict[self.task_num] = new_task
+        self.task_num = self.task_num + 1
+
+    def delete_task(self, id: int) -> None:
+        """Deletes a task"""
+        
+        # Handle Model Side
+        self.model.remove_task(id)
+        
+
+        # Handle View side
+        button = self.task_button_dict.get(id)
+        self.view.task_frame_layout.removeWidget(button)
+        button.hide()
+        button.deleteLater()
+        self.update_progress_bar()
+
+        # Update Controller
+        self.task_button_dict.pop(id)
+
+
     def load_data(self) -> None:
         """Load previous tasks from memory"""
         
-        data_list = self.file_manager.load_as_list()
+        data_list: list[TaskData] = self.file_manager.load_as_list()
         for task in data_list:
             
             # Handle view side
-            task_name = task.task_name
-            new_task = TaskbuttonWidget(task_name=task_name, id=self.task_num)
-            new_task.clicked.connect(self.click_task)
-            new_task.doubleClicked.connect(self.remove_task)
-            new_task.setChecked(task.complete)
-            new_task.toggle(task.complete)
-            self.view.task_frame_layout.addWidget(new_task)
-
-            # Handle model side
-            task_data = TaskData(task_name=task_name, id=self.task_num, complete=task.complete)
-            self.model.add_task(task_data)
-            
-            # Update Controller
-            self.task_button_dict[self.task_num] = new_task
-            self.task_num = self.task_num + 1
+            self.create_task(task_name=task.task_name, complete=task.complete)
 
 
         print(f"{len(data_list)} tasks loaded")
@@ -135,11 +132,21 @@ class AppController:
         
         # Get rate of completion
         status = self.model.get_completion_rate()
-        
-
         self.view.progress_bar.set_value(int(status))
 
     
+    def clear_all_action(self) -> None:
+        """Clears all existing tasks on the App"""
+
+        for key, task in self.task_button_dict.items():
+
+            # Update View
+            self.view.task_frame_layout.removeWidget(task)
+
+            # Update Model
+
+             
+
 
     
 

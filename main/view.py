@@ -2,7 +2,11 @@ import os
 import sys
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow
+from PyQt5.QtWidgets import (
+    QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow,
+    QMenuBar, QMenu, QAction
+
+)
 from main.Widgets.progress_bar import RoundProgressbar
 
 import main.ui
@@ -38,6 +42,16 @@ class AppView:
         # Reference Action Frame
         self.add_task_btn: QPushButton = self.action_frame.findChild(QPushButton,"add_task")
         self.add_task_line: QLineEdit = self.action_frame.findChild(QLineEdit,"task_title")
+
+        # Refence menu_bar
+        self.menu_bar: QMenuBar = self.window.findChild(QMenuBar, "menubar")
+        
+        # Referance main menu
+        self.main_menu: QMenu = self.menu_bar.findChild(QMenu, "menu_menu")
+        self.save_action: QAction = self.main_menu.findChild(QMenu, "save_action")
+        self.clear_all_action: QAction = self.main_menu.findChild(QMenu, "clear_all_action")
+        self.load_last_action: QAction = self.main_menu.findChild(QMenu, "load_lat_session_action")
+
 
     def show(self) -> None:
         self.window.show()

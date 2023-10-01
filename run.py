@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QApplication
 
 from main.model.model import AppModel
 from main.view import AppView
-from main.controller.controller import AppController
+from main.controller.main_controller import AppController
 
 
 

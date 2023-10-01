@@ -16,7 +16,7 @@ def get_button_style(color):
                 font-family: "Roboto", sans-serif;
                 font-size: 16px;
                 font-weight: bold;
-                border-radius: 20px;
+                border-radius: 25px;
             }}
             QPushButton:hover {{
                 background-color: rgba(240, 240, 240,2);
@@ -33,7 +33,7 @@ def get_button_style_checked(color):
                 font-family: "Roboto", sans-serif;
                 font-size: 16px;
                 font-weight: bold;
-                border-radius: 20px;
+                border-radius: 25px;
                 text-decoration: line-through;
             }}
         """)
