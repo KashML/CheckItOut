@@ -1,3 +1,5 @@
+import copy
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QWidget,
@@ -30,6 +32,9 @@ class AppController:
         # Connect UI interactions to model manipulations
         self.view.add_task_btn.clicked.connect(self.add_task)
         self.view.window.closeEvent = self.clean_up
+        self.view.clear_all_action.triggered.connect(self.clear_all_action)
+        self.view.save_action.triggered.connect(self.save_action)
+        self.view.load_last_action.triggered.connect(self.load_last_save)
 
         # Load previous data
         self.load_data()
@@ -138,12 +143,20 @@ class AppController:
     def clear_all_action(self) -> None:
         """Clears all existing tasks on the App"""
 
-        for key, task in self.task_button_dict.items():
+        key_list = list(self.task_button_dict.keys())
+    
+        for key in key_list:
+            self.delete_task(key)
 
-            # Update View
-            self.view.task_frame_layout.removeWidget(task)
+    def save_action(self) -> None:
+        """Saves curent task to file when user clicks save"""
 
-            # Update Model
+        print("Saving current tasks.....")
+        self.file_manager.write_to_csv(self.model.get_task_list())
+
+    def load_last_save(self) -> None:
+        """Loads last save when user clicks save"""
+        self.load_data()
 
              
 

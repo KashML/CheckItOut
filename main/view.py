@@ -48,9 +48,9 @@ class AppView:
         
         # Referance main menu
         self.main_menu: QMenu = self.menu_bar.findChild(QMenu, "menu_menu")
-        self.save_action: QAction = self.main_menu.findChild(QMenu, "save_action")
-        self.clear_all_action: QAction = self.main_menu.findChild(QMenu, "clear_all_action")
-        self.load_last_action: QAction = self.main_menu.findChild(QMenu, "load_lat_session_action")
+        self.save_action: QAction = self.window.findChild(QAction, "save_action")
+        self.clear_all_action: QAction = self.window.findChild(QAction, "clear_all_action")
+        self.load_last_action: QAction = self.window.findChild(QAction, "load_last_session_action")
 
 
     def show(self) -> None:
