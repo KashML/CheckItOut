@@ -1,4 +1,7 @@
 ,NAME,STATUS
-0,Pack your bags,False
-1,Clean up the sink,False
-2,Workout - Cardio,False
+0,Brush teeth,False
+1,Pack bag,False
+2,Have something * 2,False
+3,Brush teeth,False
+4,Pack bag,False
+5,Have something * 2,False

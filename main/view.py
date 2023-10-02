@@ -42,6 +42,7 @@ class AppView:
         # Reference Action Frame
         self.add_task_btn: QPushButton = self.action_frame.findChild(QPushButton,"add_task")
         self.add_task_line: QLineEdit = self.action_frame.findChild(QLineEdit,"task_title")
+        self.cloud_update: QPushButton = self.action_frame.findChild(QPushButton, "cloud_upload")
 
         # Refence menu_bar
         self.menu_bar: QMenuBar = self.window.findChild(QMenuBar, "menubar")

@@ -31,6 +31,8 @@ class AppController:
 
         # Connect UI interactions to model manipulations
         self.view.add_task_btn.clicked.connect(self.add_task)
+        self.view.cloud_update.clicked.connect(self.cloud_update)
+
         self.view.window.closeEvent = self.clean_up
         self.view.clear_all_action.triggered.connect(self.clear_all_action)
         self.view.save_action.triggered.connect(self.save_action)
@@ -158,8 +160,28 @@ class AppController:
         """Loads last save when user clicks save"""
         self.load_data()
 
-             
+    def cloud_update(self) -> None:
+        
+        self.view.cloud_update.setText("Please Wait while we fetch data ...")
+        # self.view.task_frame.setEnabled(False)
+        # self.view.action_frame.setEnabled(False)
+        
 
+        status, clear, task_list = self.file_manager.fetch_from_server()
+
+        if status is False:
+            print("Cloud Update failed")
+            self.view.cloud_update.setText("Cloud Upload")
+            self.view.task_frame.setEnabled(True)
+            self.view.action_frame.setEnabled(True)
+            return
+        
+        for task in task_list:
+            self.create_task(task_name=task.task_name, complete=task.complete)
+
+        self.view.cloud_update.setText("Cloud Upload")
+        self.view.task_frame.setEnabled(True)
+        self.view.action_frame.setEnabled(True)
 
     
 
