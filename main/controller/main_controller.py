@@ -163,11 +163,14 @@ class AppController:
     def cloud_update(self) -> None:
         
         self.view.cloud_update.setText("Please Wait while we fetch data ...")
-        # self.view.task_frame.setEnabled(False)
-        # self.view.action_frame.setEnabled(False)
+        self.view.task_frame.setEnabled(False)
+        self.view.action_frame.setEnabled(False)
         
 
         status, clear, task_list = self.file_manager.fetch_from_server()
+
+        if clear is True:
+            self.clear_all_action()
 
         if status is False:
             print("Cloud Update failed")

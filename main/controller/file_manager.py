@@ -65,7 +65,7 @@ class FileManager:
             return False,False,[]
         
         clear = False
-        email_data: list = server_cntrl.get_data(is_all=True)
+        email_data: list = server_cntrl.get_data()
         task_list: List[TaskData] = []
 
         for subject,body in email_data:
@@ -75,9 +75,9 @@ class FileManager:
     
                 lines = body.splitlines()            
                 # Logic to determine append or overwrite
-                if "clear" in lines[0]:
+                if "clear" in lines[0].lower():
                     clear = True
-                    for line in lines[0:]:
+                    for line in lines[1:]:
                         task_list.append(TaskData(task_name=line, complete=False))
                     
 
@@ -86,6 +86,7 @@ class FileManager:
                         task_list.append(TaskData(task_name=line, complete=False))
         
         server_cntrl.close()
+        print("Cloud Update Done")
         return status, clear, task_list
 
 
