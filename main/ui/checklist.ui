@@ -47,25 +47,32 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QFrame" name="task_frame">
+        <widget class="QScrollArea" name="task_frame_scroll">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>3</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="maximumSize">
           <size>
-           <width>1024</width>
+           <width>1000</width>
            <height>600</height>
           </size>
          </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+         <property name="widgetResizable">
+          <bool>true</bool>
          </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
+         <widget class="QWidget" name="task_frame">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>580</width>
+            <height>494</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
        </item>
        <item>

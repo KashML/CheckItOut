@@ -4,7 +4,7 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow,
-    QMenuBar, QMenu, QAction
+    QMenuBar, QMenu, QAction, QScrollArea, QWidget
 
 )
 from main.Widgets.progress_bar import RoundProgressbar
@@ -35,7 +35,7 @@ class AppView:
         # Reference top level Frames
         self.main_frame: QFrame  = self.window.findChild(QFrame, "central_widget")
         self.perf_frame: QFrame = self.window.findChild(QFrame, "perf_frame")
-        self.task_frame: QFrame = self.window.findChild(QFrame, "task_frame")
+        self.task_frame: QWidget = self.window.findChild(QWidget, "task_frame")
         self.action_frame: QFrame = self.perf_frame.findChild(QFrame,"action_frame")
         self.progress_frame: QFrame = self.perf_frame.findChild(QFrame,"progress_frame")
 
