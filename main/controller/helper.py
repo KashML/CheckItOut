@@ -1,5 +1,3 @@
-
-
 def validate_text_input(text: str) -> str:
 
     if text.strip() == "":

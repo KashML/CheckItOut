@@ -4,7 +4,7 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow,
-    QMenuBar, QMenu, QAction, QScrollArea, QWidget
+    QMenuBar, QMenu, QAction, QScrollArea, QWidget, QStatusBar
 
 )
 from main.Widgets.progress_bar import RoundProgressbar
@@ -52,6 +52,8 @@ class AppView:
         self.save_action: QAction = self.window.findChild(QAction, "save_action")
         self.clear_all_action: QAction = self.window.findChild(QAction, "clear_all_action")
         self.load_last_action: QAction = self.window.findChild(QAction, "load_last_session_action")
+
+        self.status_bar: QStatusBar = self.window.findChild(QStatusBar, "status_bar")
 
 
     def show(self) -> None:

@@ -12,7 +12,9 @@ from main.view import AppView
 from main.Widgets.task_button import TaskbuttonWidget
 from main.controller.helper import validate_text_input
 from main.controller.file_manager import FileManager
+from main.controller.splunk_logger import SplunkLogger
 from main.model.data_types import TaskData
+from main.controller.server_worker import ServerWorker
 
 
 class AppController:
@@ -23,6 +25,9 @@ class AppController:
         self.view: AppView = view
         self.file_manager = FileManager()
 
+        splunk_log = SplunkLogger(status_bar_view=self.view)
+        self.log = splunk_log.log
+
 
         # Counter for the TaskWidgets
         self.task_num = 0
@@ -31,7 +36,10 @@ class AppController:
 
         # Connect UI interactions to model manipulations
         self.view.add_task_btn.clicked.connect(self.add_task)
-        self.view.cloud_update.clicked.connect(self.cloud_update)
+
+        self.cloud_worker = None
+        self.cloud_worker_create() 
+        self.view.cloud_update.clicked.connect(self.cloud_worker_start)
 
         self.view.window.closeEvent = self.clean_up
         self.view.clear_all_action.triggered.connect(self.clear_all_action)
@@ -42,8 +50,10 @@ class AppController:
         self.load_data()
         self.update_progress_bar()
         
+        
+        
     
-        print("Initialized Controller")
+        self.log("Initialized Controller")
     
     def add_task(self) -> None:
         """Handles the action of adding a task by the user
@@ -52,7 +62,7 @@ class AppController:
         #Update View side
         task_name = validate_text_input(self.view.add_task_line.text())
         self.view.add_task_line.clear()
-        print(f"Adding a new task : {task_name}")
+        self.log(f"Adding a new task : {task_name}")
         
         self.create_task(task_name=task_name)
 
@@ -79,10 +89,10 @@ class AppController:
     def clean_up(self, event)-> None:
         """Cleaning up tasks"""
 
-        print("Saving current tasks.....")
+        self.log("Saving current tasks.....")
         self.file_manager.write_to_csv(self.model.get_task_list())
 
-        print("Exiting App")
+        self.log("Exiting App")
         event.accept()
 
     def create_task(self, task_name: str, complete: bool = False) -> None:
@@ -132,7 +142,7 @@ class AppController:
             self.create_task(task_name=task.task_name, complete=task.complete)
 
 
-        print(f"{len(data_list)} tasks loaded")
+        self.log(f"{len(data_list)} tasks loaded")
     
     def update_progress_bar(self) -> None:
         """Updates progress by quering the model"""
@@ -153,40 +163,43 @@ class AppController:
     def save_action(self) -> None:
         """Saves curent task to file when user clicks save"""
 
-        print("Saving current tasks.....")
+        self.log("Saving current tasks.....")
         self.file_manager.write_to_csv(self.model.get_task_list())
 
     def load_last_save(self) -> None:
         """Loads last save when user clicks save"""
         self.load_data()
 
-    def cloud_update(self) -> None:
-        
-        self.view.cloud_update.setText("Please Wait while we fetch data ...")
-        self.view.task_frame.setEnabled(False)
-        self.view.action_frame.setEnabled(False)
-        
+    def log(self, message: str) -> None:
+        self.view.status_bar.showMessage(message)
 
-        status, clear, task_list = self.file_manager.fetch_from_server()
+    def cloud_worker_create(self) -> None:
+        self.server_worker: ServerWorker = ServerWorker()
+        self.server_worker.startSignal.connect(self.cloud_worker_start_gui_update)
+        self.server_worker.finishedSignal.connect(self.cloud_worker_end)
 
+    def cloud_worker_start(self) -> None:
+        if self.server_worker.isRunning():  # If thread is running, terminate it (use with caution)
+            self.server_worker.terminate()
+            self.server_worker.wait() 
+
+        self.cloud_worker_create()
+        self.server_worker.start()    
+
+    def cloud_worker_start_gui_update(self) -> None:
+        self.log("Fetching data from server. Please wait .....")
+    
+    def cloud_worker_end(self, status, clear, task_list) -> None:
         if clear is True:
             self.clear_all_action()
 
         if status is False:
-            print("Cloud Update failed")
-            self.view.cloud_update.setText("Cloud Upload")
-            self.view.task_frame.setEnabled(True)
-            self.view.action_frame.setEnabled(True)
+            self.log("Cloud Update failed")
             return
         
         for task in task_list:
             self.create_task(task_name=task.task_name, complete=task.complete)
 
-        self.view.cloud_update.setText("Cloud Upload")
-        self.view.task_frame.setEnabled(True)
-        self.view.action_frame.setEnabled(True)
-
-    
-
+        self.log("Complete")
 
 
