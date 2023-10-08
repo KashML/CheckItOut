@@ -170,6 +170,7 @@ class AppController:
         """Loads last save when user clicks save"""
         self.load_data()
 
+
     def log(self, message: str) -> None:
         """Function to display message onthe status bar"""
         self.view.status_bar.showMessage(message)
@@ -195,6 +196,7 @@ class AppController:
     def cloud_worker_start_gui_update(self) -> None:
         """Update the GUI with a message"""
         self.log("Fetching data from server. Please wait .....")
+        self.view.cloud_update.setEnabled(False)
     
     def cloud_worker_end(self, status, clear, task_list) -> None:
         """Handles the task when the cloud upload worker is done"""
@@ -209,5 +211,6 @@ class AppController:
             self.create_task(task_name=task.task_name, complete=task.complete)
 
         self.log("Complete")
+        self.view.cloud_update.setEnabled(True)
 
 

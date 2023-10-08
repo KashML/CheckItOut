@@ -75,7 +75,7 @@ class RoundProgressbar(QWidget):
 		painter.drawArc(rect, int(self._a * 16), int(self._alen * 16))
 
 		# Render the progress number
-		font_size = int(self._thickness * 1.5)
+		font_size = int(self._thickness)
 		font = painter.font()
 		font.setPointSize(font_size)
 		painter.setFont(font)

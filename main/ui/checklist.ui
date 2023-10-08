@@ -42,6 +42,12 @@ QPushButton:pressed, QMenu::item:selected {
     background-color: #3A3A3A;
     border: 2px solid #5e5e5e;
 }
+
+QPushButton:disabled, QMenu::item:disabled{
+    background-color: #1a1a1a;
+    color: #777777;
+    border: 3px solid #444444;
+}
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
