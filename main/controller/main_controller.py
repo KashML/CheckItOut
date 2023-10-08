@@ -171,15 +171,21 @@ class AppController:
         self.load_data()
 
     def log(self, message: str) -> None:
+        """Function to display message onthe status bar"""
         self.view.status_bar.showMessage(message)
 
     def cloud_worker_create(self) -> None:
+        """Creates a cloud worker thread"""
         self.server_worker: ServerWorker = ServerWorker()
         self.server_worker.startSignal.connect(self.cloud_worker_start_gui_update)
         self.server_worker.finishedSignal.connect(self.cloud_worker_end)
 
     def cloud_worker_start(self) -> None:
-        if self.server_worker.isRunning():  # If thread is running, terminate it (use with caution)
+        """Starts the cloud worker thread"""
+        
+        # If thread is running, terminate it 
+        if self.server_worker.isRunning():
+            print("OH NO : Thread was running")  
             self.server_worker.terminate()
             self.server_worker.wait() 
 
@@ -187,9 +193,11 @@ class AppController:
         self.server_worker.start()    
 
     def cloud_worker_start_gui_update(self) -> None:
+        """Update the GUI with a message"""
         self.log("Fetching data from server. Please wait .....")
     
     def cloud_worker_end(self, status, clear, task_list) -> None:
+        """Handles the task when the cloud upload worker is done"""
         if clear is True:
             self.clear_all_action()
 
