@@ -34,14 +34,14 @@ class ServerController:
             
             return False
     
-    def get_inbox_all(self) -> list:
+    def _get_inbox_all(self) -> list:
         """Get all email"""
         self.client.select_folder('INBOX', readonly=False)
         emails = self.client.search(['ALL'])
         
         return emails
 
-    def get_inbox_unseen(self) -> list:
+    def _get_inbox_unseen(self) -> list:
         """Get all unseen emails"""
 
         self.client.select_folder('INBOX', readonly=False)
@@ -58,7 +58,7 @@ class ServerController:
             raise RuntimeError("Connection not established. Please call establish_connection() or check connection.")
 
         data = []
-        emails = self.get_inbox_all() if is_all is True else self.get_inbox_unseen()
+        emails = self._get_inbox_all() if is_all is True else self._get_inbox_unseen()
     
 
         for i, email_id in enumerate(emails):
