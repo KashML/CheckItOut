@@ -205,8 +205,9 @@ class AppController:
 
         if status is False:
             self.log("Cloud Update failed")
+            self.view.cloud_update.setEnabled(True)
             return
-        
+
         for task in task_list:
             self.create_task(task_name=task.task_name, complete=task.complete)
 

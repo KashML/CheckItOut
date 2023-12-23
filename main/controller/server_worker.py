@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, List
 from PyQt5.QtCore import QThread, pyqtSignal
 from main.model.data_types import TaskData
 from server.server import ServerController
@@ -24,8 +24,9 @@ class ServerWorker(QThread):
         status = server_cntrl.establish_connection()
 
         # Exit if error 
-        if status is not True:
-            return False,False,[]
+        if status != True:
+            self.finishedSignal.emit(False, False, [])
+            return
         
         clear = False
         email_data: list = server_cntrl.get_data()
