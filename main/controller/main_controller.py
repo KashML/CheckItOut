@@ -54,7 +54,11 @@ class AppController:
         
     
         self.log("Initialized Controller")
-    
+
+    # --------------
+    # Core Functions
+    # --------------
+
     def add_task(self) -> None:
         """Handles the action of adding a task by the user
         """
@@ -119,7 +123,6 @@ class AppController:
         
         # Handle Model Side
         self.model.remove_task(id)
-        
 
         # Handle View side
         button = self.task_button_dict.get(id)
@@ -141,7 +144,6 @@ class AppController:
             # Handle view side
             self.create_task(task_name=task.task_name, complete=task.complete)
 
-
         self.log(f"{len(data_list)} tasks loaded")
     
     def update_progress_bar(self) -> None:
@@ -151,29 +153,14 @@ class AppController:
         status = self.model.get_completion_rate()
         self.view.progress_bar.set_value(int(status))
 
-    
-    def clear_all_action(self) -> None:
-        """Clears all existing tasks on the App"""
-
-        key_list = list(self.task_button_dict.keys())
-    
-        for key in key_list:
-            self.delete_task(key)
-
-    def save_action(self) -> None:
-        """Saves curent task to file when user clicks save"""
-
-        self.log("Saving current tasks.....")
-        self.file_manager.write_to_csv(self.model.get_task_list())
-
-    def load_last_save(self) -> None:
-        """Loads last save when user clicks save"""
-        self.load_data()
-
 
     def log(self, message: str) -> None:
         """Function to display message onthe status bar"""
         self.view.status_bar.showMessage(message)
+
+    # --------------
+    # Server Functions
+    # --------------
 
     def cloud_worker_create(self) -> None:
         """Creates a cloud worker thread"""
@@ -214,4 +201,34 @@ class AppController:
         self.log("Complete")
         self.view.cloud_update.setEnabled(True)
 
+    # ----------------
+    # Menu Functions
+    # ----------------
+
+    def clear_all_action(self) -> None:
+        """Clears all existing tasks on the App"""
+
+        key_list = list(self.task_button_dict.keys())
+
+        for key in key_list:
+            self.delete_task(key)
+
+    def save_action(self) -> None:
+        """Saves curent task to file when user clicks save"""
+
+        self.log("Saving current tasks.....")
+        self.file_manager.write_to_csv(self.model.get_task_list())
+
+    def load_last_save(self) -> None:
+        """Loads last save when user clicks save"""
+        self.load_data()
+
+    def display_all(self) -> None:
+        """Displays all tasks irrespective to their era"""
+        self.save_action()
+        self.clear_all_action()
+        self.load_data()
+
+    def display_daily(self) -> None:
+        """Displays tasks only tagged as daily"""
 

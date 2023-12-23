@@ -208,7 +208,16 @@ QPushButton:disabled, QMenu::item:disabled{
      <string>Theme</string>
     </property>
    </widget>
+   <widget class="QMenu" name="filter_menu">
+    <property name="title">
+     <string>Filter</string>
+    </property>
+    <addaction name="all_action"/>
+    <addaction name="daily_action"/>
+    <addaction name="monthly_action"/>
+   </widget>
    <addaction name="menu_menu"/>
+   <addaction name="filter_menu"/>
    <addaction name="theme_menu"/>
   </widget>
   <widget class="QStatusBar" name="status_bar"/>
@@ -225,6 +234,36 @@ QPushButton:disabled, QMenu::item:disabled{
   <action name="load_last_session_action">
    <property name="text">
     <string>Reload Last Session</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>All</string>
+   </property>
+  </action>
+  <action name="actionDaily_2">
+   <property name="text">
+    <string>Daily</string>
+   </property>
+  </action>
+  <action name="actionMonthly">
+   <property name="text">
+    <string>Monthly</string>
+   </property>
+  </action>
+  <action name="all_action">
+   <property name="text">
+    <string>All</string>
+   </property>
+  </action>
+  <action name="daily_action">
+   <property name="text">
+    <string>Daily</string>
+   </property>
+  </action>
+  <action name="monthly_action">
+   <property name="text">
+    <string>Monthly</string>
    </property>
   </action>
  </widget>

@@ -53,6 +53,12 @@ class AppView:
         self.clear_all_action: QAction = self.window.findChild(QAction, "clear_all_action")
         self.load_last_action: QAction = self.window.findChild(QAction, "load_last_session_action")
 
+        # Referance Filter Menu
+        self.filter_menu: QMenu = self.menu_bar.findChild(QMenu,"filter_menu")
+        self.filter_all_action: QAction = self.window.findChild(QAction, "all_action")
+        self.filter_daily_action: QAction = self.window.findChild(QAction, "all_action")
+        self.filter_monthly_action: QAction = self.window.findChild(QAction, "")
+
         self.status_bar: QStatusBar = self.window.findChild(QStatusBar, "status_bar")
 
 
