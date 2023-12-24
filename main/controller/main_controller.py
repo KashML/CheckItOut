@@ -29,6 +29,7 @@ class AppController:
 
 
         # Connect UI interactions to model manipulations
+        #TODO - Feature The add button only adds tasks as daily.
         self.view.add_task_btn.clicked.connect(self.add_task)
 
         self.cloud_worker = None

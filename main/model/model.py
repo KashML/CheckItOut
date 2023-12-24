@@ -11,11 +11,14 @@ class AppModel:
     def add_task(self, task: TaskData) -> None:
         """Add the taskbuttons to a dict"""
         self._task_dict[task.id] = task
+        self._task_dict_current[task.id] = task
+
     
     def add_clicked(self, id: int, checked: bool) -> None:
         """Updates the status of the task"""
         if self._task_dict.get(id) is not None:
             self._task_dict[id].complete = checked
+            self._task_dict_current[id].complete = checked
 
     
     def get_num_tasks(self) -> int:
@@ -37,6 +40,8 @@ class AppModel:
     def remove_task(self, id: int) -> None:
         """Removes task from dict"""
         self._task_dict.pop(id)
+        if self._task_dict_current.get(id) is not None:
+            self._task_dict_current.pop(id)
 
     def get_completion_rate(self) -> float:
         """ Get percentage of completion"""

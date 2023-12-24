@@ -1,10 +1,8 @@
 ,NAME,STATUS,ERA
-0,Amity,False,DAILY
-1,Dummy Task,False,DAILY
-2,Dummy Task,False,DAILY
-3,Dummy Task,False,DAILY
-4,Dummy Task,False,DAILY
+0,D1,False,DAILY
+1,D2,False,DAILY
+2,D3,False,DAILY
+3,M1,False,MONTHLY
+4,M2,False,MONTHLY
 5,Dummy Task,False,DAILY
 6,Dummy Task,False,DAILY
-7,Dummy Task,False,DAILY
-8,Dummy Task,False,DAILY
