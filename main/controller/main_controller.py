@@ -212,7 +212,7 @@ class AppController:
             return
 
         for task in task_list:
-            self.create_task(task_name=task.task_name, complete=task.complete)
+            self.create_task(task_name=task.task_name, complete=task.complete, era=task.era)
 
         self.log(f"Complete. Number of tasks fetched : {len(task_list)}")
         self.view.cloud_update.setEnabled(True)

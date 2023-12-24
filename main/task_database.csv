@@ -1,3 +1,6 @@
 ,NAME,STATUS,ERA
-0,Dummy Task,False,Era.DAILY
-1,Dummy Task,False,Era.DAILY
+0,For Hello,False,MONTHLY
+1,Vulgar,True,MONTHLY
+2,Sheesh ,False,DAILY
+3,Amity,False,MONTHLY
+4,Greg,False,MONTHLY
