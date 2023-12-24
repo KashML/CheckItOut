@@ -29,7 +29,7 @@ class FileManager:
         table = pd.DataFrame(columns=[NAME, STATUS, ERA])
 
         for task in task_list:
-            table.loc[len(table.index)] = [task.task_name, task.complete, task.era]
+            table.loc[len(table.index)] = [task.task_name, task.complete, task.era.name]
 
         table.to_csv(CSV_PATH)
 
@@ -40,7 +40,9 @@ class FileManager:
     def load_as_list(self) -> list:
         """Loads a list of TaskData Objects"""
         table = self.load_from_csv()
+        table[ERA] = table[ERA].apply(lambda x: Era[x])
         data_list = table.apply(lambda row: TaskData(task_name=row[NAME], complete=row[STATUS], era=row[ERA]), axis=1).tolist()
+
 
         for d in data_list:
             print(d.task_name, d.complete)

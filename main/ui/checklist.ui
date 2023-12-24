@@ -253,17 +253,17 @@ QPushButton:disabled, QMenu::item:disabled{
   </action>
   <action name="all_action">
    <property name="text">
-    <string>All</string>
+    <string>All Tasks</string>
    </property>
   </action>
   <action name="daily_action">
    <property name="text">
-    <string>Daily</string>
+    <string>Daily Goals</string>
    </property>
   </action>
   <action name="monthly_action">
    <property name="text">
-    <string>Monthly</string>
+    <string>Monthly Goals</string>
    </property>
   </action>
  </widget>
