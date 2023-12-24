@@ -46,6 +46,7 @@ class AppController:
 
         # Load previous data
         self.load_data()
+        self.model.set_current_dir_to_full_dir()
         self.update_progress_bar()
         
         
@@ -242,21 +243,26 @@ class AppController:
     def display_all(self) -> None:
         """Displays all tasks irrespective to their era"""
 
+        self.model.set_current_dir_to_full_dir()
         for task_id in self.task_button_dict.keys():
-            print(task_id)
             self.show_task(task_id)
 
+        self.update_progress_bar()
         self.log("Currently displaying all tasks")
 
     def display_daily(self) -> None:
         """Displays tasks only tagged as daily"""
 
+        # Update View
         self.hide_all_tasks()
         id_list = self.model.get_task_id_by_filter(filter=Era.DAILY)
-        print(id_list)
         for id in id_list:
             self.show_task(id)
 
+        #Update Model
+        self.model.set_working_task_list(filter=Era.DAILY)
+
+        self.update_progress_bar()
         self.log("Currently displaying only daily goals")
 
     def display_monthly(self) -> None:
@@ -267,4 +273,8 @@ class AppController:
         for id in id_list:
             self.show_task(id)
 
+        # Update Model
+        self.model.set_working_task_list(filter=Era.MONTHLY)
+
+        self.update_progress_bar()
         self.log("Currently displaying only monthly goals")

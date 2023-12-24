@@ -5,6 +5,7 @@ class AppModel:
     
     def __init__(self):
         self._task_dict: dict[int, TaskData] = {}
+        self._task_dict_current: dict[int, TaskData] = {}
         print("Initialized Model")
     
     def add_task(self, task: TaskData) -> None:
@@ -18,19 +19,19 @@ class AppModel:
 
     
     def get_num_tasks(self) -> int:
-        """Get total number of task in the dict"""
-        return len(self._task_dict.keys())
+        """Get total number of task in the current dict"""
+        return len(self._task_dict_current.keys())
 
     def get_num_completed_tasks(self) -> int:
-        """Get number oftasks which are checked"""
+        """Get number of tasks which are checked in the current dict"""
         count = 0 
-        for task in self._task_dict.values():
+        for task in self._task_dict_current.values():
             if task.complete is True:
                 count = count + 1
         return count
     
     def get_num_idle_tasks(self) -> int:
-        """Get number of idle tasks"""
+        """Get number of idle tasks in the current dict"""
         return self.get_num_tasks - self.get_num_completed_tasks()
                 
     def remove_task(self, id: int) -> None:
@@ -55,5 +56,17 @@ class AppModel:
             if task.era == filter:
                 id_list.append(task.id)
         return id_list
+
+    def set_working_task_list(self, filter: Era) -> list:
+
+        id_list = self.get_task_id_by_filter(filter=filter)
+        # Empty the current directory and fill it again.
+        self._task_dict_current = {}
+        for id in id_list:
+            self._task_dict_current[id] = self._task_dict[id]
+
+    def set_current_dir_to_full_dir(self):
+        self._task_dict_current = self._task_dict.copy()
+
 
     
