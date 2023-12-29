@@ -9,7 +9,7 @@ from main.controller.file_manager import FileManager
 from main.controller.splunk_logger import SplunkLogger
 from main.model.data_types import TaskData, Era
 from main.controller.server_worker import ServerWorker
-
+from main.controller.sound_controller import SoundController
 
 class AppController:
     
@@ -48,11 +48,14 @@ class AppController:
         # Load previous data
         self.load_data()
         self.model.set_current_dir_to_full_dir()
+
+        # #Initalize the sound controller
+        self.sound_ctrl = SoundController()
+
         self.update_progress_bar()
         
-        
-        
-    
+
+
         self.log("Initialized Controller")
 
     # --------------
@@ -62,17 +65,19 @@ class AppController:
     def add_task(self) -> None:
         """Handles the action of adding a task by the user
         """
+        self.sound_ctrl.click_sound()
 
         #Update View side
         task_name = validate_text_input(self.view.add_task_line.text())
         self.view.add_task_line.clear()
         self.log(f"Adding a new task : {task_name}")
-        
+
         self.create_task(task_name=task_name)
 
 
     def click_task(self, checked):
         """Handles the action of a task being clicked"""
+        self.sound_ctrl.task_toggle_sound()
 
         # Handle view side
         button: TaskbuttonWidget = self.view.app.sender()
@@ -169,6 +174,10 @@ class AppController:
         
         # Get rate of completion
         status = self.model.get_completion_rate()
+
+        if int(status) == 100:
+            self.sound_ctrl.complete_celebrate()
+
         self.view.progress_bar.set_value(int(status))
 
 
@@ -188,6 +197,7 @@ class AppController:
 
     def cloud_worker_start(self) -> None:
         """Starts the cloud worker thread"""
+        self.sound_ctrl.click_sound()
         
         # If thread is running, terminate it 
         if self.server_worker.isRunning():
@@ -205,6 +215,8 @@ class AppController:
     
     def cloud_worker_end(self, status, clear, task_list) -> None:
         """Handles the task when the cloud upload worker is done"""
+        self.sound_ctrl.get_email_sound()
+
         if clear is True:
             self.clear_all_action()
 
@@ -225,6 +237,7 @@ class AppController:
 
     def clear_all_action(self) -> None:
         """Clears all existing tasks on the App"""
+        self.sound_ctrl.menu_click_sound()
 
         key_list = list(self.task_button_dict.keys())
 
@@ -233,16 +246,19 @@ class AppController:
 
     def save_action(self) -> None:
         """Saves curent task to file when user clicks save"""
+        self.sound_ctrl.menu_click_sound()
 
         self.log("Saving current tasks.....")
         self.file_manager.write_to_csv(self.model.get_task_list())
 
     def load_last_save(self) -> None:
         """Loads last save when user clicks save"""
+        self.sound_ctrl.menu_click_sound()
         self.load_data()
 
     def display_all(self) -> None:
         """Displays all tasks irrespective to their era"""
+        self.sound_ctrl.menu_click_sound()
 
         self.model.set_current_dir_to_full_dir()
         for task_id in self.task_button_dict.keys():
@@ -253,6 +269,7 @@ class AppController:
 
     def display_daily(self) -> None:
         """Displays tasks only tagged as daily"""
+        self.sound_ctrl.menu_click_sound()
 
         # Update View
         self.hide_all_tasks()
@@ -268,6 +285,7 @@ class AppController:
 
     def display_monthly(self) -> None:
         """Displays tasks only tagged as daily"""
+        self.sound_ctrl.menu_click_sound()
 
         self.hide_all_tasks()
         id_list = self.model.get_task_id_by_filter(filter=Era.MONTHLY)
