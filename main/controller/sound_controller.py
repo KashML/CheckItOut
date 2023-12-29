@@ -2,10 +2,11 @@ from PyQt5.QtMultimedia import QSound
 from main.sounds_lib import (
     CLICK,
     WOW,
-    GET_EMAIL,
+    THEME,
     GET_EMAIL_VIOLIN,
     MENU_CLICK,
-    TASK_DONE
+    TASK_DONE,
+    DESTROY
 )
 
 
@@ -17,24 +18,46 @@ class SoundController:
     """
 
     def __init__(self):
+        self.sound_off: bool = True
         self.click_sound_path: str = CLICK
         self.menu_click_sound_path: str = MENU_CLICK
         self.wow_sound_path = WOW
         self.violin_sound_path = GET_EMAIL_VIOLIN
-        self.email_notify_path = GET_EMAIL
-        self.task_done = TASK_DONE
+        self.theme_path = THEME
+        self.task_done_path = TASK_DONE
+        self.task_delete_path = DESTROY
 
     def click_sound(self):
-        QSound.play(self.click_sound_path)
+        if not self.sound_off:
+            QSound.play(self.click_sound_path)
 
     def menu_click_sound(self):
-        QSound.play(self.menu_click_sound_path)
+        if not self.sound_off:
+            QSound.play(self.menu_click_sound_path)
 
     def complete_celebrate(self):
-        QSound.play(self.wow_sound_path)
+        if not self.sound_off:
+            QSound.play(self.wow_sound_path)
 
     def get_email_sound(self):
-        QSound.play(self.email_notify_path)
+        if not self.sound_off:
+            QSound.play(self.violin_sound_path)
 
     def task_toggle_sound(self):
-        QSound.play(self.task_done)
+        if not self.sound_off:
+            QSound.play(self.task_done_path)
+
+    def task_delete_sound(self):
+        if not self.sound_off:
+            QSound.play(self.task_delete_path)
+
+    def save_sound(self):
+        if not self.sound_off:
+            QSound.play(self.theme_path)
+
+    def set_sound_on(self):
+        self.sound_off = False
+
+    def set_sound_off(self):
+        self.sound_off = True
+

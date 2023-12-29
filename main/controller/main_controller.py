@@ -19,6 +19,10 @@ class AppController:
         self.view: AppView = view
         self.file_manager = FileManager()
 
+        #Initalize the sound controller
+        self.sound_ctrl = SoundController()
+
+        #Initialize the logger
         splunk_log = SplunkLogger(status_bar_view=self.view)
         self.log = splunk_log.log
 
@@ -48,14 +52,10 @@ class AppController:
         # Load previous data
         self.load_data()
         self.model.set_current_dir_to_full_dir()
-
-        # #Initalize the sound controller
-        self.sound_ctrl = SoundController()
-
         self.update_progress_bar()
         
-
-
+        # Switching on the sounds only after initialization
+        self.sound_ctrl.set_sound_on()
         self.log("Initialized Controller")
 
     # --------------
@@ -90,6 +90,7 @@ class AppController:
     
     def remove_task(self):
         """Handles the action of deleting a task by double clicking on it"""
+        self.sound_ctrl.task_delete_sound()
 
         button: TaskbuttonWidget = self.view.app.sender()
         self.delete_task(id=button.id)
@@ -122,6 +123,7 @@ class AppController:
         # Update the controller
         self.task_button_dict[self.task_num] = new_task
         self.task_num = self.task_num + 1
+        self.update_progress_bar()
 
     def delete_task(self, id: int) -> None:
         """Deletes a task"""
@@ -246,7 +248,7 @@ class AppController:
 
     def save_action(self) -> None:
         """Saves curent task to file when user clicks save"""
-        self.sound_ctrl.menu_click_sound()
+        self.sound_ctrl.save_sound()
 
         self.log("Saving current tasks.....")
         self.file_manager.write_to_csv(self.model.get_task_list())
