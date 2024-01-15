@@ -235,7 +235,7 @@ QPushButton:disabled, QMenu::item:disabled{
   <action name="save_action">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../Downloads/content-view-thumbnails-icon.svg</normaloff>../../../../Downloads/content-view-thumbnails-icon.svg</iconset>
+     <normaloff>../../icons/icon_1.svg</normaloff>../../icons/icon_1.svg</iconset>
    </property>
    <property name="text">
     <string>Save</string>
