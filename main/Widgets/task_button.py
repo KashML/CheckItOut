@@ -35,6 +35,8 @@ class TaskbuttonWidget(QPushButton):
             self.set_style_checked()
         else:
             self.set_style_og()
+
+        self.setChecked(checked)
         
 
     def mouseDoubleClickEvent(self, event):

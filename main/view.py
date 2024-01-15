@@ -53,6 +53,8 @@ class AppView:
         self.main_menu: QMenu = self.menu_bar.findChild(QMenu, "menu_menu")
         self.save_action: QAction = self.window.findChild(QAction, "save_action")
         self.clear_all_action: QAction = self.window.findChild(QAction, "clear_all_action")
+        self.clear_curr_action: QAction = self.window.findChild(QAction, "clear_c_action")
+        self.uncheck_curr_action: QAction = self.window.findChild(QAction, "uncheck_c_action")
         self.load_last_action: QAction = self.window.findChild(QAction, "load_last_session_action")
 
         # Referance Filter Menu

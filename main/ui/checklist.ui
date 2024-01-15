@@ -221,10 +221,10 @@ QPushButton:disabled, QMenu::item:disabled{
     </property>
     <addaction name="save_action"/>
     <addaction name="separator"/>
-    <addaction name="actionClear_Current"/>
+    <addaction name="clear_c_action"/>
     <addaction name="clear_all_action"/>
     <addaction name="separator"/>
-    <addaction name="actionUncheck_Current"/>
+    <addaction name="uncheck_c_action"/>
     <addaction name="separator"/>
     <addaction name="load_last_session_action"/>
    </widget>
@@ -332,7 +332,7 @@ QPushButton:disabled, QMenu::item:disabled{
     </font>
    </property>
   </action>
-  <action name="actionClear_Current">
+  <action name="clear_c_action">
    <property name="text">
     <string>Clear Current</string>
    </property>
@@ -342,7 +342,7 @@ QPushButton:disabled, QMenu::item:disabled{
     </font>
    </property>
   </action>
-  <action name="actionUncheck_Current">
+  <action name="uncheck_c_action">
    <property name="text">
     <string>Uncheck Current</string>
    </property>

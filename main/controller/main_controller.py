@@ -44,6 +44,8 @@ class AppController:
 
         self.view.window.closeEvent = self.clean_up
         self.view.clear_all_action.triggered.connect(self.clear_all_action)
+        self.view.clear_curr_action.triggered.connect(self.clear_current_action)
+        self.view.uncheck_curr_action.triggered.connect(self.uncheck_current_selection)
         self.view.save_action.triggered.connect(self.save_action)
         self.view.load_last_action.triggered.connect(self.load_last_save)
 
@@ -82,10 +84,12 @@ class AppController:
     def click_task(self, checked):
         """Handles the action of a task being clicked"""
         self.sound_ctrl.task_toggle_sound()
+        print(f"THIS ISISISI {checked}")
 
         # Handle view side
         button: TaskbuttonWidget = self.view.app.sender()
         button.toggle(checked)
+        button.update()
 
         # Handle model side
         self.model.add_clicked(id=button.id, checked=checked)
@@ -249,6 +253,35 @@ class AppController:
 
         for key in key_list:
             self.delete_task(key)
+
+    def clear_current_action(self) -> None:
+        """Clears all current tasks displayed on the app"""
+
+        if self.mode == Era.ALL:
+            self.clear_all_action()
+            return
+
+        self.sound_ctrl.menu_click_sound()
+        key_list = self.model.get_task_id_by_filter(filter=self.mode)
+        for key in key_list:
+            self.delete_task(key)
+
+    def uncheck_current_selection(self) -> None:
+        """Makes all the task displayed incomplete"""
+
+        self.sound_ctrl.menu_click_sound()
+
+        if self.mode == Era.ALL:
+            key_list = list(self.task_button_dict.keys())
+        else:
+            key_list = self.model.get_task_id_by_filter(filter=self.mode)
+
+        for key in key_list:
+            button: TaskbuttonWidget = self.task_button_dict[key]
+            button.toggle(checked=False)
+            self.model.add_clicked(id=key, checked=False)
+        self.update_progress_bar()
+
 
     def save_action(self) -> None:
         """Saves curent task to file when user clicks save"""
