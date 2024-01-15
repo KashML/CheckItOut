@@ -241,6 +241,11 @@ QPushButton:disabled, QMenu::item:disabled{
    <property name="text">
     <string>Clear All</string>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
   </action>
   <action name="load_last_session_action">
    <property name="text">
