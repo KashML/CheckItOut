@@ -4,9 +4,10 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow,
-    QMenuBar, QMenu, QAction, QScrollArea, QWidget, QStatusBar, QLabel
+    QMenuBar, QMenu, QAction, QScrollArea, QWidget, QStatusBar, QLabel, QHBoxLayout
 
 )
+from PyQt5.QtCore import  Qt
 from main.Widgets.progress_bar import RoundProgressbar
 
 import main.ui
@@ -72,8 +73,8 @@ class AppView:
         self.task_frame.setLayout(self.task_frame_layout)
     
     def _prepare_progress_frame(self):
-        self.progress_frame_layout: QVBoxLayout = QVBoxLayout()
-        self.progress_bar = RoundProgressbar(thickness=30)
+        self.progress_frame_layout: QHBoxLayout = QHBoxLayout()
+        self.progress_bar = RoundProgressbar(thickness=20)
         self.progress_frame_layout.addWidget(self.progress_bar)
         self.progress_frame.setLayout(self.progress_frame_layout)
         self.progress_bar.set_value(100)
