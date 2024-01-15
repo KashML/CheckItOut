@@ -74,7 +74,8 @@ class AppController:
         self.view.add_task_line.clear()
         self.log(f"Adding a new task : {task_name}")
 
-        self.create_task(task_name=task_name)
+        era = Era.DAILY if self.mode == Era.ALL else self.mode
+        self.create_task(task_name=task_name,era=era)
 
 
     def click_task(self, checked):
@@ -269,6 +270,8 @@ class AppController:
             self.show_task(task_id)
 
         self.update_progress_bar()
+        self.mode = Era.ALL
+        self.view.mode_text.setText("Mode: ALL")
         self.log("Currently displaying all tasks")
 
     def display_by_filter(self, filter: Era) -> None:
@@ -285,5 +288,7 @@ class AppController:
         self.model.set_working_task_list(filter=filter)
 
         self.update_progress_bar()
+        self.mode = filter
+        self.view.mode_text.setText(f"Mode: {filter.value}")
         self.log(f"Currently displaying only {filter.value} goals")
 

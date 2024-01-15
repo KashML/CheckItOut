@@ -4,7 +4,7 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow,
-    QMenuBar, QMenu, QAction, QScrollArea, QWidget, QStatusBar
+    QMenuBar, QMenu, QAction, QScrollArea, QWidget, QStatusBar, QLabel
 
 )
 from main.Widgets.progress_bar import RoundProgressbar
@@ -42,6 +42,7 @@ class AppView:
         # Reference Action Frame
         self.add_task_btn: QPushButton = self.action_frame.findChild(QPushButton,"add_task")
         self.add_task_line: QLineEdit = self.action_frame.findChild(QLineEdit,"task_title")
+        self.mode_text: QLabel = self.action_frame.findChild(QLabel,"mode_text")
         self.cloud_update: QPushButton = self.action_frame.findChild(QPushButton, "cloud_upload")
 
         # Refence menu_bar
