@@ -60,7 +60,7 @@ QPushButton:disabled, QMenu::item:disabled{
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,4">
        <item>
         <widget class="QScrollArea" name="task_frame_scroll">
          <property name="sizePolicy">
@@ -83,7 +83,7 @@ QPushButton:disabled, QMenu::item:disabled{
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>580</width>
+            <width>615</width>
             <height>494</height>
            </rect>
           </property>
