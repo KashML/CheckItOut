@@ -62,7 +62,7 @@ class AppView:
         self.filter_monthly_action: QAction = self.window.findChild(QAction, "monthly_action")
 
         self.status_bar: QStatusBar = self.window.findChild(QStatusBar, "status_bar")
-        self.save_action.setIcon(QIcon(SAVE_ICON))
+        self.clear_all_action.setIcon(QIcon(SAVE_ICON))
 
 
     def show(self) -> None:
