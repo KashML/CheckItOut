@@ -31,6 +31,8 @@ class AppController:
         self.task_num = 0
         self.task_button_dict: Dict[int:TaskbuttonWidget] = {}
 
+        # Set Mode
+        self.mode: Era = Era.ALL
 
         # Connect UI interactions to model manipulations
         #TODO - Feature The add button only adds tasks as daily.
@@ -46,8 +48,8 @@ class AppController:
         self.view.load_last_action.triggered.connect(self.load_last_save)
 
         self.view.filter_all_action.triggered.connect(self.display_all)
-        self.view.filter_daily_action.triggered.connect(self.display_daily)
-        self.view.filter_monthly_action.triggered.connect(self.display_monthly)
+        self.view.filter_daily_action.triggered.connect(lambda: self.display_by_filter(Era.DAILY))
+        self.view.filter_monthly_action.triggered.connect(lambda: self.display_by_filter(Era.MONTHLY))
 
         # Load previous data
         self.load_data()
@@ -269,33 +271,19 @@ class AppController:
         self.update_progress_bar()
         self.log("Currently displaying all tasks")
 
-    def display_daily(self) -> None:
+    def display_by_filter(self, filter: Era) -> None:
         """Displays tasks only tagged as daily"""
         self.sound_ctrl.menu_click_sound()
 
         # Update View
         self.hide_all_tasks()
-        id_list = self.model.get_task_id_by_filter(filter=Era.DAILY)
+        id_list = self.model.get_task_id_by_filter(filter=filter)
         for id in id_list:
             self.show_task(id)
 
         #Update Model
-        self.model.set_working_task_list(filter=Era.DAILY)
+        self.model.set_working_task_list(filter=filter)
 
         self.update_progress_bar()
-        self.log("Currently displaying only daily goals")
+        self.log(f"Currently displaying only {filter.value} goals")
 
-    def display_monthly(self) -> None:
-        """Displays tasks only tagged as daily"""
-        self.sound_ctrl.menu_click_sound()
-
-        self.hide_all_tasks()
-        id_list = self.model.get_task_id_by_filter(filter=Era.MONTHLY)
-        for id in id_list:
-            self.show_task(id)
-
-        # Update Model
-        self.model.set_working_task_list(filter=Era.MONTHLY)
-
-        self.update_progress_bar()
-        self.log("Currently displaying only monthly goals")
