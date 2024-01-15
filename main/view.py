@@ -4,10 +4,12 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import (
     QApplication, QFrame, QPushButton, QVBoxLayout, QLineEdit, QMainWindow,
-    QMenuBar, QMenu, QAction, QScrollArea, QWidget, QStatusBar
+    QMenuBar, QMenu, QAction, QScrollArea, QWidget, QStatusBar,
 
 )
+from PyQt5.QtGui import QIcon
 from main.Widgets.progress_bar import RoundProgressbar
+from main.icons import *
 
 import main.ui
 
@@ -60,6 +62,7 @@ class AppView:
         self.filter_monthly_action: QAction = self.window.findChild(QAction, "monthly_action")
 
         self.status_bar: QStatusBar = self.window.findChild(QStatusBar, "status_bar")
+        self.save_action.setIcon(QIcon(SAVE_ICON))
 
 
     def show(self) -> None:

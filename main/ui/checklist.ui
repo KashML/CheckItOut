@@ -233,10 +233,6 @@ QPushButton:disabled, QMenu::item:disabled{
   </widget>
   <widget class="QStatusBar" name="status_bar"/>
   <action name="save_action">
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/icon_1.svg</normaloff>icons/icon_1.svg</iconset>
-   </property>
    <property name="text">
     <string>Save</string>
    </property>
