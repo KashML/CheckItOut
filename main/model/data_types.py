@@ -7,6 +7,7 @@ class Era(Enum):
     ALL = "ALL"
     DAILY = "DAILY"
     MONTHLY = "MONTHLY"
+    WORKOUT_WEEKLY = "WORKOUT_WEEKLY"
 
 class TaskData:
     def __init__(self, task_name: str, id: int = 0, complete: bool = False, era: Era = Era.DAILY) -> None:

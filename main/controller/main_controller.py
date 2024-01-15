@@ -50,6 +50,7 @@ class AppController:
         self.view.filter_all_action.triggered.connect(self.display_all)
         self.view.filter_daily_action.triggered.connect(lambda: self.display_by_filter(Era.DAILY))
         self.view.filter_monthly_action.triggered.connect(lambda: self.display_by_filter(Era.MONTHLY))
+        self.view.filter_workout_week_action.triggered.connect(lambda: self.display_by_filter(Era.WORKOUT_WEEKLY))
 
         # Load previous data
         self.load_data()

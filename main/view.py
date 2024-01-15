@@ -59,6 +59,7 @@ class AppView:
         self.filter_all_action: QAction = self.window.findChild(QAction, "all_action")
         self.filter_daily_action: QAction = self.window.findChild(QAction, "daily_action")
         self.filter_monthly_action: QAction = self.window.findChild(QAction, "monthly_action")
+        self.filter_workout_week_action: QAction = self.window.findChild(QAction, "workout_action")
 
         self.status_bar: QStatusBar = self.window.findChild(QStatusBar, "status_bar")
 
