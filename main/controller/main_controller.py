@@ -84,12 +84,10 @@ class AppController:
     def click_task(self, checked):
         """Handles the action of a task being clicked"""
         self.sound_ctrl.task_toggle_sound()
-        print(f"THIS ISISISI {checked}")
 
         # Handle view side
         button: TaskbuttonWidget = self.view.app.sender()
         button.toggle(checked)
-        button.update()
 
         # Handle model side
         self.model.add_clicked(id=button.id, checked=checked)
@@ -122,7 +120,7 @@ class AppController:
         new_task.doubleClicked.connect(self.remove_task)
         new_task.setChecked(complete)
         new_task.toggle(complete)
-        self.view.task_frame_layout.addWidget(new_task)
+        self.view.task_frame_layout.insertWidget(0,new_task)
 
         # Handle model side
         task_data = TaskData(task_name=str(task_name), id=self.task_num, complete=complete, era=era)
@@ -254,6 +252,8 @@ class AppController:
         for key in key_list:
             self.delete_task(key)
 
+        self.log("All Tasks cleared")
+
     def clear_current_action(self) -> None:
         """Clears all current tasks displayed on the app"""
 
@@ -265,6 +265,8 @@ class AppController:
         key_list = self.model.get_task_id_by_filter(filter=self.mode)
         for key in key_list:
             self.delete_task(key)
+
+        self.log(f"Tasks for the mode: {self.mode.value} cleared")
 
     def uncheck_current_selection(self) -> None:
         """Makes all the task displayed incomplete"""
@@ -281,6 +283,7 @@ class AppController:
             button.toggle(checked=False)
             self.model.add_clicked(id=key, checked=False)
         self.update_progress_bar()
+        self.log(f"Tasks for the mode: {self.mode.value} Unchecked")
 
 
     def save_action(self) -> None:

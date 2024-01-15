@@ -13,7 +13,9 @@ era_filter_dict = {
     "-m": Era.MONTHLY,
     "-monthly": Era.MONTHLY,
     "-daily": Era.DAILY,
-    "-d": Era.DAILY
+    "-d": Era.DAILY,
+    "-w": Era.WORKOUT_WEEKLY,
+    "-workout": Era.WORKOUT_WEEKLY
 }
 
 def find_era(line: str) -> Optional[Era]:

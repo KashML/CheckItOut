@@ -209,6 +209,9 @@ QPushButton:disabled, QMenu::item:disabled{
      <height>30</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QMenu::separator {background: 3px solid #5e5e5e; height: 3px}</string>
+   </property>
    <widget class="QMenu" name="menu_menu">
     <property name="font">
      <font>
